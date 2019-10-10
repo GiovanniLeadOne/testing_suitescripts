@@ -1,33 +1,35 @@
 'use strict';
 
 var should = require('should');
-var expect = require('chai').expect;
 var nsmockup = require('nsmockup');
 
 var _dirnameCustomer = "app/customer.json"
 /**
  * Test Suitelet
  */
- var done;
- describe('Unit Test Netsuite -Record', function()
- {
-   before(done = function(){
-      // map record types
-       let records = {
-              'customer': _dirnameCustomer 
+ describe('<Unit Test - Netsuite Context API>', function () {
+  describe('SuiteScript API - nlapiGetUser:', () => {
+        it('get-user current "customer"', done => {
+          let opt = {
+              metadata: [':customer'],
+              records: {
+                  'customer': _dirnameCustomer
+              },
+              current: {
+                  user: {
+                      internalid: 22,
+                      type: 'customer'
+                  }
+              }                        
           };
+          nsmockup.init(opt, (err) => {
+              if (err) return done(err);
 
-      // start database simulation
-      nsmockup.init({records, server: true}, done);
-    });
+              var id = nlapiGetUser();
+              should(id).be.equal(22);
 
-    describe("Record", function() 
-    {
-        let recordcustomer = 'customer'
-        it("Load by id", function()
-        {
-           expect(1+1).to.equal(2) 
-        });
-        return done();
+              nsmockup.destroy(done);
+          });
+      });
     });
- });
+});
