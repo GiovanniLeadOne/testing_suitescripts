@@ -3,35 +3,50 @@
 var should = require('should'),
     nsmockup = require('nsmockup'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    expect = require('chai').expect;
 
 var base = "app/customer.json";
 /**
  * Test Suites
  */
 var customerpath = path.resolve(base),
-                customerjson = JSON.parse(fs.readFileSync(customerpath));
+    customerjson = JSON.parse(fs.readFileSync(customerpath));
 
 describe('<Unit Test - Netsuite Customer JSON>', function () {
     describe('SuiteScript Practice - nlapiLoadRecord:', () => {              
 
-        it('get-user current "customer"', done => {
+        //pass the test if the file is in the path
+        it('email customer is not null', done => {
             let opts = {
                 metadata: [':customer'],
                 records: {
                     'customer': base
-                },
-                current: {
-                    user: {id: 22, type:'customer'}
-                }                
+                }                         
             };
             nsmockup.init(opts, (err) => {
                 if (err) return done(err);
+                                
+                expect(customerjson[0]["email"]).to.not.equal(null);
 
-                let id = nlapiGetUser();
-                should(id).be.equal('22');
                 //show terminal message
-                nlapiLogExecution("DEBUG", customerjson)
+                //nlapiLogExecution("DEBUG", customerjson[0]["email"])
+                nsmockup.destroy(done);
+            });
+        });
+
+        //pass the test if the file is in the path
+        it('email equal for customer', done => {
+            let opts = {
+                metadata: [':customer'],
+                records: {
+                    'customer': base
+                }                         
+            };
+            nsmockup.init(opts, (err) => {
+                if (err) return done(err);
+                
+                should(customerjson[0]["email"]).be.equal('japo.japo@suiteplus.com');                
                 nsmockup.destroy(done);
             });
         });
