@@ -1,35 +1,37 @@
 'use strict';
 
-var should = require('should');
-var nsmockup = require('nsmockup');
+var should = require('should'),
+    nsmockup = require('nsmockup');
 
-var _dirnameCustomer = "app/customer.json"
+var base = "app/customer.json"
 /**
- * Test Suitelet
+ * Test Suites
  */
- describe('<Unit Test - Netsuite Context API>', function () {
-  describe('SuiteScript API - nlapiGetUser:', () => {
-        it('get-user current "customer"', done => {
-          let opt = {
-              metadata: [':customer'],
-              records: {
-                  'customer': _dirnameCustomer
-              },
-              current: {
-                  user: {
-                      internalid: 22,
-                      type: 'customer'
-                  }
-              }                        
-          };
-          nsmockup.init(opt, (err) => {
-              if (err) return done(err);
+describe('<Unit Test - Netsuite Context API>', function () {
+    describe('SuiteScript API - nlapiGetUser:', () => {        
 
-              var id = nlapiGetUser();
-              should(id).be.equal(22);
+        it('get-user current "customer whit id 22"', done => {
+            let opts = {
+                metadata: [':customer'],
+                records: {
+                    'customer': base 
+                },
+                current: {
+                    user: {
+                        id: 22,
+                        type: 'customer'
+                    }
+                }
+            };
+            nsmockup.init(opts, (err) => {
+                if (err) return done(err);
 
-              nsmockup.destroy(done);
-          });
-      });
+
+                let id = nlapiGetUser();
+                should(id).be.equal('22');
+
+                nsmockup.destroy(done);
+            });
+        });        
     });
 });
