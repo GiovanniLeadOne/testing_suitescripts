@@ -2,7 +2,8 @@
  *@NApiVersion 2.x
  *@NScriptType UserEventScript
  */
-require(['N/log'], function(log) {
+
+function beforeLoad(log) {
 
     function beforeLoad(context) {
         if (context.type != context.UserEventType.CREATE)
@@ -13,8 +14,10 @@ require(['N/log'], function(log) {
             customerRecord.setValue('salesrep', 46); // replace '46'  with one specific to your account
             
     }
+    
+
 
     return {
         beforeLoad: beforeLoad        
     }
-});
+};

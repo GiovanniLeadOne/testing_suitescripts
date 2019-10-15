@@ -7,7 +7,7 @@ var path_userevent = 'app/user_event.js'
 var path_customerJSON = "app/customer.json";
 
 describe("<Unit Test - NetSuite User Event>", function() {
-    
+    this.timeout(5000);
     //ruta del archivo user event y la declaracion 
     let opts = {        
         name: 'user_event',
@@ -26,10 +26,16 @@ describe("<Unit Test - NetSuite User Event>", function() {
     })
 
     describe("User Event Context Create", function() {
-        it('user event set value phone call', done => {
+        it('Acess File Script Event User', () => {
             nsmockup.createUserEvent(opts, (ctx) => {
+                let context = ctx.nlapiGetContext();
                 should(ctx.beforeLoad).be.ok();
+                should(context).be.ok();
+                
+
             });
         });
+        afterEach(done => {
+            nsmockup.destroy(done)});    
     });
 });
