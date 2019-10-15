@@ -2,7 +2,7 @@
  *@NApiVersion 2.x
  *@NScriptType UserEventScript
  */
-define(['N/log'], function(log) {
+require(['N/log'], function(log) {
 
     function beforeLoad(context) {
         if (context.type != context.UserEventType.CREATE)
