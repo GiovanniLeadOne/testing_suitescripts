@@ -8,13 +8,13 @@
 define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', 'N/runtime', 'N/log'],
 	function (serverWidget, https, record, search, dialog, runtime, log) {
 
-		var param_hapikey = runtime.getCurrentScript().getParameter({
-			name: 'custscript_dmc_alk_hapikey_ue'
-		});
+		//var param_hapikey = runtime.getCurrentScript().getParameter({
+		//	name: 'custscript_dmc_alk_hapikey_ue'
+		//});
 
-		function requester(param_hapikey) {
+		/*function requester(param_hapikey) {
 			this.url = "https://api.hubapi.com/";
-			this.auth = '?hapikey='+param_hapikey;
+			//this.auth = '?hapikey='+param_hapikey;
 			this.contacts = {
 			  ALL: this.url + "contacts/v1/lists/all/contacts/recent",
 			  INDIVIDUAL: this.url + "contacts/v1/contact/vids/batch",
@@ -68,11 +68,11 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 				headers: this.headers
 			  });
 			};
-		}
+		}*/
 
 		function afterSubmit(context) {
 			var newrec = context.newRecord
-			var reque = new requester(param_hapikey);
+			//var reque = new requester(param_hapikey);
 			if (context.type == "create") {
 				if (newrec.type == "opportunity") {
 					log.debug("OPP", newrec.type);
