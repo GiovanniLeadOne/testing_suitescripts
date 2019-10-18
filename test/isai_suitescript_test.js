@@ -1,6 +1,8 @@
 const sinon = require('sinon')
-const {loadSuiteScriptModule, NRecord, NLog} = require('netsumo');
+const {loadSuiteScriptModule, NRecord, NLog, NHttps} = require('netsumo');
 
+let Runtime = require('./Runtime');
+console.log(Runtime);
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
@@ -26,33 +28,27 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
             //create record for testing
             var record = new NRecord();
             var log = new NLog();
+            var https = new NHttps();
+
             const fulfilmentUserEvent = FulfilmentUserEventModule({
                 "N/record":record,
-                "N/log":log                
+                "N/log":log,
+                "N/https":https,         
+                "N/runtime": Runtime              
             });
             //create a new opportunity record
-            var opportunity = record.create({
+            var opportunity = record.load({
             type:record.Type.OPPORTUNITY,
             id:"1269",
             defaultValues:{
-                title:"new product line"
+                title:"Winnie Wheelchairs",
+                entity:"997",
+                subsidiary:"1",
+                location:"2",
+                salesrep:"17",
+                companyid:"997"
+
             }
-            /*sublists:{
-                'package':[{
-                  packageweight:10,
-                  sys_id:1232342342434,
-                  sys_parentid:89842893742837,
-                  pkgWeightUnit:"lbs",
-                  packagedescr:"some description",
-                  shippingaddress: record.create({ // create a sublist subrecord (or use an existing Record reference)
-                    type: record.Type.Address,
-                    id: 1235,
-                    defaultValues:{
-                      addr1: 'Main street'
-                    }
-                  })
-                }]                
-              }*/ 
         })
         
         //Execute the beforeSubmit method, passing in our context
@@ -64,7 +60,7 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
         },
             newRecord:opportunity
         });
-           should(opportunity.getValue("type")).toBe("opportunity") 
+            expect(opportunity.getValue("type")).toBe("opportunity") 
         })
     })
 })
