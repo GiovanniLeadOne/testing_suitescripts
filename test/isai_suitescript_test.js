@@ -1,4 +1,3 @@
-const sinon = require('sinon')
 const {loadSuiteScriptModule, NRecord, NLog, NHttps} = require('netsumo');
 
 let Runtime = require('./Runtime');
@@ -24,7 +23,6 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
     });
 
     describe("Records" , () => {
-        it("Record type is Opportunity" , () => {
             //create record for testing
             var record = new NRecord();
             var log = new NLog();
@@ -36,31 +34,31 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
                 "N/https":https,         
                 "N/runtime": Runtime              
             });
-            //create a new opportunity record
-            var opportunity = record.load({
-            type:record.Type.OPPORTUNITY,
-            id:"1269",
-            defaultValues:{
-                title:"Winnie Wheelchairs",
-                entity:"997",
-                subsidiary:"1",
-                location:"2",
-                salesrep:"17",
-                companyid:"997"
+            
+            // create opportunity record
+            var oppCreate = record.create({
+                type: 'opportunity',
+                id: 1226,
+                defaultValues: {
+                    companyid:"30260",
+                    entity:"30260",
+                    entitystatus:"7",
+                    expectedclosedate:"10/18/2019",
+                    projectedtotal:"171.00"
 
-            }
-        })
+                }
+            })
         
-        //Execute the beforeSubmit method, passing in our context
+        //Execute the afterSubmit method, passing in our context
         fulfilmentUserEvent.afterSubmit({
-            type:"create",
+            type:'opportunity',
             UserEventType:{
-            CREATE:"create",
-            EDIT:"edit"
+            CREATE:'create'
         },
-            newRecord:opportunity
+            newRecord: oppCreate
         });
-            expect(opportunity.getValue("type")).toBe("opportunity") 
+        it("entitistatus is not null" , () => {
+            expect(oppCreate.getValue('entitystatus')).to.not.be.null 
         })
     })
 })

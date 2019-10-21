@@ -8,7 +8,7 @@
 
 define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', 'N/runtime', 'N/log'],
 	function (serverWidget, https, record, search, dialog, runtime, log) {
-		console.log('Runtime is: ', runtime)
+		
 		var param_hapikey = runtime.getCurrentScript().getParameter({
 			name: 'custscript_dmc_alk_hapikey_ue'
 		});
