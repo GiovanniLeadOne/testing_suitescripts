@@ -1,6 +1,7 @@
-const {loadSuiteScriptModule, NRecord, NLog, NHttps} = require('netsumo');
+const {loadSuiteScriptModule, NRecord, NLog} = require('netsumo');
 
 let Runtime = require('./Runtime');
+let https = require('./https')
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
@@ -24,8 +25,7 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
     describe("Records" , () => {
             //create record for testing
             var record = new NRecord();
-            var log = new NLog();
-            var https = new NHttps();
+            var log = new NLog();            
 
             const fulfilmentUserEvent = FulfilmentUserEventModule({
                 "N/record":record,
@@ -56,12 +56,16 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
         },
             newRecord: oppCreate
         });
-        it("entitistatus is not null" , () => {
+        it("entitistatus  not is null" , () => {
             expect(oppCreate.getValue('entitystatus')).to.not.be.null 
         })
 
-        it("", () => {
-            
+        it("Get Parameter not is null", () => {            
+            expect(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).to.not.be.null
+        })
+
+        it("GET url hubspot contacts", () => {
+            console.log(https.requester(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).Get(https.requester().url))
         })
     })
 })
