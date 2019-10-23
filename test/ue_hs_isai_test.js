@@ -22,9 +22,9 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
         });           
     });
 
-    describe("Records" , () => {
+    describe("Create and Load Record, User Event Type is equal create" , () => {
             //create record for testing
-            var record = new NRecord();
+            var record = new NRecord();            
             var log = new NLog();            
 
             const fulfilmentUserEvent = FulfilmentUserEventModule({
@@ -36,41 +36,37 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
             
             // create opportunity record
             var oppCreate = record.create({
-                type: 'opportunity',
+                type: record.Type.OPPORTUNITY,
                 id: 1226,
                 defaultValues: {
+                    title: 'valor_title',
                     companyid:"30260",
                     entity:"30260",
-                    entitystatus:"7",
+                    entitystatus:{value:7, text:"Company Isai"},
                     expectedclosedate:"10/18/2019",
-                    projectedtotal:"171.00"
-
+                    projectedtotal:  171.00,
+                    custentity_hubspot_id_: '1'
                 }
-            })
-        
+            });                        
         //Execute the afterSubmit method, passing in our context
         fulfilmentUserEvent.afterSubmit({
-            type:'opportunity',
+            type:'create',
             UserEventType:{
-            CREATE:'create'
+            CREATE:'create',
+            EDIT:'edit'
         },
             newRecord: oppCreate
         });
-        it("entitistatus  not is null" , () => {
-            expect(oppCreate.getValue('entitystatus')).to.not.be.null 
+        it("record type is OPPORTUNITY" , () => {
+            expect(oppCreate.type).equal("opportunity")
         })
 
         it("Get Parameter not is null", () => {            
             expect(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).to.not.be.null
         })
 
-        it("GET url hubspot contacts", () => {
-            chai.request(https.requester(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).companies.ADD)
-            .get('')
-            .end(function(err,res) {
-                console.log(res.body)
-                expect(res).to.have.status(200);
-            });                       
+        it("GET url hubspot contacts", () => {  
+            expect(oppCreate.getValue('companyid')).to.not.be.undefined
         })
     })
 })

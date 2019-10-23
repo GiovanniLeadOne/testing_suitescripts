@@ -73,21 +73,29 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 		function afterSubmit(context) {
 			var newrec = context.newRecord
-			//var reque = new requester(param_hapikey);
+			var reque = new requester(param_hapikey);
 			if (context.type == "create") {
 				if (newrec.type == "opportunity") {
 					log.debug("OPP", newrec.type);
 
 					var errMsg;
 
-					var rec = record.load({
-						type: 'opportunity',
-						id: newrec.id
-					});
+					var rec = newrec
+
+					// var rec = record.load({
+					// 	type: 'opportunity',
+					// 	id: newrec.id
+					// });
+					
+					for (var element in context.newRecord) {
+						console.log(element + " <----- AQUI ES")	
+					}			
+					
+					console.log(context.newRecord.getValue({fieldId: 'entitystatus'}) + "<----- ENTITY STATUS")
 					
 					var title = rec.getText({
 						fieldId: 'title'
-					});
+					});					
 
 					var projectedtotal = rec.getValue({
 						fieldId: 'projectedtotal'
