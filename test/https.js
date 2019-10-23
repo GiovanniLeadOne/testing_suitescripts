@@ -39,14 +39,14 @@ module.exports = {
         });
         };
         this.Post = function (url, body) {
-        return https.post({
+        return ({
             url: url,
             body: JSON.stringify(body),
             headers: this.headers
         });
         };
         this.Put = function (url, body) {
-        return https.put({
+        return ({
             url: url,
             body: JSON.stringify(body),
             headers: this.headers

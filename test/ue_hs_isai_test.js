@@ -65,7 +65,12 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
         })
 
         it("GET url hubspot contacts", () => {
-            console.log(https.requester(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).Get(https.requester().url))
+            chai.request(https.requester(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).companies.ADD)
+            .get('')
+            .end(function(err,res) {
+                console.log(res.body)
+                expect(res).to.have.status(200);
+            });                       
         })
     })
 })
