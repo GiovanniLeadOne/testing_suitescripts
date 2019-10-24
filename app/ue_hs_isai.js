@@ -81,37 +81,26 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					var errMsg;
 
 					var rec = newrec
-
 					// var rec = record.load({
 					// 	type: 'opportunity',
 					// 	id: newrec.id
 					// });
 					
-					for (var element in context.newRecord) {
-						console.log(element + " <----- AQUI ES")	
-					}			
+					// for (var element in context.newRecord) {
+					// 	console.log(element + " <----- AQUI ES")	
+					// }			
 					
-					console.log(context.newRecord.getValue({fieldId: 'entitystatus'}) + "<----- ENTITY STATUS")
+					//console.log(context.newRecord.getText('entitystatus') + " <----- ENTITY STATUS")
 					
-					var title = rec.getText({
-						fieldId: 'title'
-					});					
+					var title = rec.getText('title');					
 
-					var projectedtotal = rec.getValue({
-						fieldId: 'projectedtotal'
-					});
+					var projectedtotal = rec.getValue('projectedtotal');
 
-					var company_id = rec.getValue({
-						fieldId: 'companyid'
-					});
+					var company_id = rec.getValue('companyid');
 
-					var id = rec.getValue({
-						fieldId: 'id'
-					});
+					var id = rec.getValue('id');
 
-					var dealstage = rec.getText({
-						fieldId: 'entitystatus'
-					});
+					var dealstage = rec.getText('entitystatus');
 
 					//Deal Stage value on hubsot is a string like: closewon
 					dealstage = String(dealstage);
@@ -122,9 +111,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 						dealstage = "778371"
 					}
 
-					var closedate = rec.getText({
-						fieldId: 'expectedclosedate'
-					});
+					var closedate = rec.getText('expectedclosedate');
 
 					// Get timestamp value from closedate 
 					closedate = new Date(String(closedate)).valueOf();
@@ -132,14 +119,13 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					log.debug("Record Vars", "title: " + title + " projt: " + projectedtotal + " deals: " + dealstage + " closed: " + closedate);
 					
 					//REVIEW Load customer from opportunity record by companyid property, maybe it will be better use a custom_search (optimizable) 
-					var customer_rec = record.load({
-						type: "customer",
-						id: company_id
-					});
+					var customer_rec = newrec
+					// var customer_rec = record.load({
+					// 	type: "customer",
+					// 	id: company_id
+					// });
 
-					hs_cus_id = customer_rec.getValue({
-						fieldId: "custentity_hubspot_id_"
-					});
+					hs_cus_id = customer_rec.getValue("custentity_hubspot_id_");
 
 					var opp_record = {
 						"associations": {
@@ -209,8 +195,8 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					});
 
 					log.debug("https response_hubspot", response_hubspot)
-
-					rec.setValue('custbody_dmc_hs_deal_id', custentity_dmc_hubspot_id);
+					//lo modifique el set value es diferente en netsumo
+					rec.setValue({fieldId: 'custbody_dmc_hs_deal_id', value: custentity_dmc_hubspot_id});
 
 					try {
 						var recordId = rec.save();

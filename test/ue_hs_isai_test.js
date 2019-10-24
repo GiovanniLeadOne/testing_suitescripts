@@ -37,14 +37,15 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
             // create opportunity record
             var oppCreate = record.create({
                 type: record.Type.OPPORTUNITY,
-                id: 1226,
+                isDynamic: true,
+                id: 18492,
                 defaultValues: {
-                    title: 'valor_title',
-                    companyid:"30260",
-                    entity:"30260",
-                    entitystatus:{value:7, text:"Company Isai"},
-                    expectedclosedate:"10/18/2019",
-                    projectedtotal:  171.00,
+                    title:'kronosinc.com -A new kind of deal',
+                    companyid:'30924',
+                    entity:{value: '30924', text: 'Bring Us Together Inc'},
+                    entitystatus:{value:'7', text:'Opportunity Identified'},
+                    expectedclosedate: {text:"10/22/2019"},
+                    projectedtotal:  0.00,
                     custentity_hubspot_id_: '1'
                 }
             });                        
