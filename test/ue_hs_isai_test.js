@@ -46,7 +46,8 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
                     entitystatus:{value:'7', text:'Opportunity Identified'},
                     expectedclosedate: {text:"10/22/2019"},
                     projectedtotal:  0.00,
-                    custentity_hubspot_id_: '1'
+                    custentity_hubspot_id_: '8954037',
+                    dealstage: 'appointmentscheduled'
                 }
             });                        
         //Execute the afterSubmit method, passing in our context
