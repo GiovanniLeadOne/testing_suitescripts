@@ -1,7 +1,7 @@
 const {loadSuiteScriptModule, NRecord, NLog} = require('netsumo');
 
 let Runtime = require('./Runtime');
-let https = require('./https')
+let https = require('./https');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
@@ -31,7 +31,7 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
                 "N/record":record,
                 "N/log":log,
                 "N/https":https,         
-                "N/runtime": Runtime              
+                "N/runtime": Runtime                
             });
             
             // create opportunity record

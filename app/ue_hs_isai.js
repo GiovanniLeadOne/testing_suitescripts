@@ -9,23 +9,6 @@
 define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', 'N/runtime', 'N/log'],
 	function (serverWidget, https, record, search, dialog, runtime, log) {
 
-		//agregue este codigo, para poder realizar la peticion a POSTMAN
-		async function post(url = '', data = {}) {
-			// Default options are marked with *
-			const response = await fetch(url, {
-				method: 'POST', // *GET, POST, PUT, DELETE, etc.				
-				body: JSON.stringify(data), // body data type must match "Content-Type" header
-				headers: {
-					"Content-Type": 'application/json',
-					"dataType": 'json',
-					"Access-Control-Allow-Credentials": "true",
-					'Accept': "application/json"
-				}								
-			});
-			return await response.json(); // parses JSON response into native JavaScript objects
-		}
-
-
 		var param_hapikey = runtime.getCurrentScript().getParameter({
 			name: 'custscript_dmc_alk_hapikey_ue'
 		});
@@ -145,7 +128,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					// 	id: company_id
 					// });
 
-					hs_cus_id = customer_rec.getValue("custentity_hubspot_id_");					
+					hs_cus_id = customer_rec.getValue("custentity_hubspot_id_");
 
 					var opp_record = {
 						"associations": {
@@ -189,10 +172,12 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 						]
 					};
 
-					//cambie codigo de isai
-					var response_hubspot = post(reque.deals.ADD + reque.auth, opp_record);
-					console.log(response_hubspot.body + "  <- AQUI GIO")
-					var obj = JSON.parse(response_hubspot.body);
+					//cambie codigo de isai, Solucion temporal
+					//var response_hubspot = reque.post(reque.deals.ADD + reque.auth, opp_record);
+					var response_hubspot = https.requester('asa').Post({url: reque.deals.ADD + reque.auth});				
+					
+					//console.log(response_hubspot + "  <- AQUI GIO")
+					var obj = JSON.parse(response_hubspot.body);					
 
 					log.debug("deal_body", opp_record);
 					log.debug("RESP", response_hubspot);
@@ -217,7 +202,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					});
 
 					log.debug("https response_hubspot", response_hubspot)
-					//lo modifique el set value es diferente en netsumo
+					
 					rec.setValue({ fieldId: 'custbody_dmc_hs_deal_id', value: custentity_dmc_hubspot_id });
 
 					try {
