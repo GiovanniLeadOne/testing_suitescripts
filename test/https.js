@@ -33,162 +33,167 @@ module.exports = {
         };        
 
         this.Post = (options) => {
-            switch(options.url){
-                case 'https://979e5f6a-4f8f-49f6-b466-a6abe040b53e.mock.pstmn.io/api_hubspot/deals/v1/deal?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
-                return {
-                    code: 200,
-                    portalId: 62515,
-                    "dealId": 151088,
-                    "isDeleted": false,
-                    "associations": {
-                        "associatedVids": [
-                            27136
-                        ],
-                        "associatedCompanyIds": [
-                            8954037
-                        ],
-                        "associatedDealIds": []
-                    },
-                    "properties": {
-                        "amount": {
-                            "value": "60000",
-                            "timestamp": 1410381338943,
-                            "source": "API",
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "amount",
-                                    "value": "60000",
-                                    "timestamp": 1410381338943,
-                                    "source": "API",
-                                    "sourceVid": []
-                                }
-                            ]
+            if(options.data){
+                switch(options.url){
+                    case 'https://979e5f6a-4f8f-49f6-b466-a6abe040b53e.mock.pstmn.io/api_hubspot/deals/v1/deal?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
+                    return {
+                        "code": 200,
+                        "portalId": 62515,
+                        "dealId": 151088,
+                        "isDeleted": false,
+                        "associations": {
+                            "associatedVids": [
+                                27136
+                            ],
+                            "associatedCompanyIds": [
+                                8954037
+                            ],
+                            "associatedDealIds": []
                         },
-                        "dealstage": {
-                            "value": "appointmentscheduled",
-                            "timestamp": 1410381338943,
-                            "source": "API",
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "dealstage",
-                                    "value": "appointmentscheduled",
-                                    "timestamp": 1410381338943,
-                                    "source": "API",
-                                    "sourceVid": []
-                                }
-                            ]
-                        },
-                        "pipeline": {
-                            "value": "default",
-                            "timestamp": 1410381338943,
-                            "source": "API",
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "pipeline",
-                                    "value": "default",
-                                    "timestamp": 1410381338943,
-                                    "source": "API",
-                                    "sourceVid": []
-                                }
-                            ]
-                        },
-                        "closedate": {
-                            "value": "1409443200000",
-                            "timestamp": 1410381338943,
-                            "source": "API",
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "closedate",
-                                    "value": "1409443200000",
-                                    "timestamp": 1410381338943,
-                                    "source": "API",
-                                    "sourceVid": []
-                                }
-                            ]
-                        },
-                        "createdate": {
-                            "value": "1410381339020",
-                            "timestamp": 1410381339020,
-                            "source": null,
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "createdate",
-                                    "value": "1410381339020",
-                                    "timestamp": 1410381339020,
-                                    "sourceVid": []
-                                }
-                            ]
-                        },
-                        "hubspot_owner_id": {
-                            "value": "24",
-                            "timestamp": 1410381338943,
-                            "source": "API",
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "hubspot_owner_id",
-                                    "value": "24",
-                                    "timestamp": 1410381338943,
-                                    "source": "API",
-                                    "sourceVid": []
-                                }
-                            ]
-                        },
-                        "hs_createdate": {
-                            "value": "1410381339020",
-                            "timestamp": 1410381339020,
-                            "source": null,
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "hs_createdate",
-                                    "value": "1410381339020",
-                                    "timestamp": 1410381339020,
-                                    "sourceVid": []
-                                }
-                            ]
-                        },
-                        "dealtype": {
-                            "value": "newbusiness",
-                            "timestamp": 1410381338943,
-                            "source": "API",
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "dealtype",
-                                    "value": "newbusiness",
-                                    "timestamp": 1410381338943,
-                                    "source": "API",
-                                    "sourceVid": []
-                                }
-                            ]
-                        },
-                        "dealname": {
-                            "value": "A new Deal",
-                            "timestamp": 1410381338943,
-                            "source": "API",
-                            "sourceId": null,
-                            "versions": [
-                                {
-                                    "name": "dealname",
-                                    "value": "A new Deal",
-                                    "timestamp": 1410381338943,
-                                    "source": "API",
-                                    "sourceVid": []
-                                }
-                            ]
+                        "properties": {
+                            "amount": {
+                                "value": "60000",
+                                "timestamp": 1410381338943,
+                                "source": "API",
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "amount",
+                                        "value": "60000",
+                                        "timestamp": 1410381338943,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "dealstage": {
+                                "value": "appointmentscheduled",
+                                "timestamp": 1410381338943,
+                                "source": "API",
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "dealstage",
+                                        "value": "appointmentscheduled",
+                                        "timestamp": 1410381338943,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "pipeline": {
+                                "value": "default",
+                                "timestamp": 1410381338943,
+                                "source": "API",
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "pipeline",
+                                        "value": "default",
+                                        "timestamp": 1410381338943,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "closedate": {
+                                "value": "1409443200000",
+                                "timestamp": 1410381338943,
+                                "source": "API",
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "closedate",
+                                        "value": "1409443200000",
+                                        "timestamp": 1410381338943,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "createdate": {
+                                "value": "1410381339020",
+                                "timestamp": 1410381339020,
+                                "source": null,
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "createdate",
+                                        "value": "1410381339020",
+                                        "timestamp": 1410381339020,
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "hubspot_owner_id": {
+                                "value": "24",
+                                "timestamp": 1410381338943,
+                                "source": "API",
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "hubspot_owner_id",
+                                        "value": "24",
+                                        "timestamp": 1410381338943,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "hs_createdate": {
+                                "value": "1410381339020",
+                                "timestamp": 1410381339020,
+                                "source": null,
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "hs_createdate",
+                                        "value": "1410381339020",
+                                        "timestamp": 1410381339020,
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "dealtype": {
+                                "value": "newbusiness",
+                                "timestamp": 1410381338943,
+                                "source": "API",
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "dealtype",
+                                        "value": "newbusiness",
+                                        "timestamp": 1410381338943,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ]
+                            },
+                            "dealname": {
+                                "value": "A new Deal",
+                                "timestamp": 1410381338943,
+                                "source": "API",
+                                "sourceId": null,
+                                "versions": [
+                                    {
+                                        "name": "dealname",
+                                        "value": "A new Deal",
+                                        "timestamp": 1410381338943,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ]
+                            }
                         }
-                    }
+                    };
+    
+                    default :
+                    return {code: 404, dealId: undefined }
                 };
-
-                default :
-                return {code: 404}
-            };
+            }            
+            else{
+                return {code: 400}
+            }
         };
 
         return this;

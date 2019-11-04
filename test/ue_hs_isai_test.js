@@ -22,6 +22,9 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
         });           
     });
 
+    it("Get Parameter not is null (Runtime.getCurrentScript)", () => {            
+        expect(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).to.not.be.null
+    })
     describe("Create and Load Record, User Event Type is equal create" , () => {
             //create record for testing
             var record = new NRecord();            
@@ -46,10 +49,34 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
                     entitystatus:{value:'7', text:'Opportunity Identified'},
                     expectedclosedate: {text:"10/22/2019"},
                     projectedtotal:  0.00,
-                    custentity_hubspot_id_: '8954037',
+                    custentity_hubspot_id_: '1773',
                     dealstage: 'appointmentscheduled'
                 }
-            });                        
+            });           
+            
+            var estimateCreate = record.create({
+                type: record.Type.ESTIMATE,
+                id: "143",
+                defaultValues:{
+                    custbody_dmc_hs_deal_id: "151088",                    
+                },
+                sublists:{
+                    item:[{
+                        item_display: "#4-12",
+                        description: "#4 (1/2) Grade 4 Re-Bar 12",
+                        rate: "1.39",
+                        quantity: {value: 1, text: "1"},
+                        custcol_dmc_hs_line_id: ''
+                    }]
+                    [{
+                        item_display: "Description",
+                        description: "testing",
+                        rate: "2.75",
+                        quantity: {value: 2, text: "2"},
+                        custcol_dmc_hs_line_id: ''
+                    }]                    
+                }
+            });
         //Execute the afterSubmit method, passing in our context
         fulfilmentUserEvent.afterSubmit({
             type:'create',
@@ -57,18 +84,18 @@ describe("Test Records Isai NetSuite & HubSpot" , () => {
             CREATE:'create',
             EDIT:'edit'
         },
-            newRecord: oppCreate
-        });
-        it("record type is OPPORTUNITY" , () => {
-            expect(oppCreate.type).equal("opportunity")
-        })
+            newRecord: oppCreate,
+            NWrecord: estimateCreate
+        });        
 
-        it("Get Parameter not is null", () => {            
-            expect(Runtime.getCurrentScript().getParameter({name: 'custscript_dmc_alk_hapikey_ue'})).to.not.be.null
-        })
-
-        it("GET url hubspot contacts", () => {  
-            expect(oppCreate.getValue('companyid')).to.not.be.undefined
+        describe("RECORD TYPE OPPORTUNITY", () => {
+            it("response code 200 OK (record type Opportunity)", () => {
+                expect(oppCreate.getValue('code')).equal(200)
+            })
+    
+            it("Hubspot ID not is empty (record type Opportunity)", () => {
+                expect(oppCreate.getValue('custbody_dmc_hs_deal_id')).not.be.undefined
+            })
         })
     })
 })

@@ -75,7 +75,8 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 		}
 
 		function afterSubmit(context) {
-			var newrec = context.newRecord
+			var newrec = context.newRecord;
+			var newREC = context.NWrecord;			
 			var reque = new requester(param_hapikey);
 			if (context.type == "create") {
 				if (newrec.type == "opportunity") {
@@ -169,9 +170,8 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					
 					//var response_hubspot = reque.post(reque.deals.ADD + reque.auth, opp_record);
 					//Solucion temporal
-					var response_hubspot = https.requester('asa').Post({url: reque.deals.ADD + reque.auth});				
-					
-					console.log(response_hubspot.code + "  <- AQUI GIO")
+					var response_hubspot = https.requester('').Post({url: reque.deals.ADD + reque.auth, data: opp_record});				
+					rec.setValue({fieldId: "code", value: response_hubspot.code})					
 					//var obj = JSON.parse(response_hubspot.body);	
 					var obj = response_hubspot				
 
@@ -181,14 +181,18 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					custentity_dmc_hubspot_id = ""
 					if (response_hubspot.code == 200) {
 						errMsg = 'Record Created';
-						custentity_dmc_hubspot_id = obj.dealId;
+						custentity_dmc_hubspot_id = obj.dealId;						
 					} else if (response_hubspot.code == 409) {
 						errMsg = 'Opp already exists';
 						custentity_dmc_hubspot_id = obj.identityProfile.vid;
 					} else {
 						errMsg = 'Bad request';
+						custentity_dmc_hubspot_id = obj.dealId;						
 					}
-					custentity_dmc_hubspot_id = String(custentity_dmc_hubspot_id);
+					if(custentity_dmc_hubspot_id)
+					{
+						custentity_dmc_hubspot_id = String(custentity_dmc_hubspot_id);
+					}
 
 					log.debug("custentity_dmc_hubspot_id", custentity_dmc_hubspot_id);
 
@@ -209,9 +213,9 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 						log.debug("Error", "Error updating record with id:");
 					}
 
-				} else if (newrec.type == "estimate" || newrec.type == "salesorder") {
-					log.debug("ESTIMATE", newrec.type);
-
+				} else if (newREC.type == "estimate" || newREC.type == "salesorder") {
+					log.debug("ESTIMATE", newrec.type);		
+					console.log(newREC.type, "TYPE")			
 					rec = record.load({
 						type: newrec.type,
 						id: newrec.id
