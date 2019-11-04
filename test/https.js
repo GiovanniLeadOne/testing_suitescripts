@@ -34,10 +34,10 @@ module.exports = {
 
         this.Post = (options) => {
             switch(options.url){
-                case 'https://979e5f6a-4f8f-49f6-b466-a6abe040b53e.mock.pstmn.io/api_hubspot/?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
+                case 'https://979e5f6a-4f8f-49f6-b466-a6abe040b53e.mock.pstmn.io/api_hubspot/deals/v1/deal?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
                 return {
-                    "code": 200,
-                    "portalId": 62515,
+                    code: 200,
+                    portalId: 62515,
                     "dealId": 151088,
                     "isDeleted": false,
                     "associations": {
@@ -185,6 +185,9 @@ module.exports = {
                         }
                     }
                 };
+
+                default :
+                return {code: 404}
             };
         };
 

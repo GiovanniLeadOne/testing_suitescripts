@@ -88,12 +88,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					// var rec = record.load({
 					// 	type: 'opportunity',
 					// 	id: newrec.id
-					// });
-
-					//Mostrar los elementos del newRecord, si eran los mismos que le enviamos en el Test Isai
-					// for (var element in context.newRecord) {
-					// 	console.log(element + " <----- AQUI ES")	
-					// }													
+					// });																
 
 					var title = rec.getText('title');
 
@@ -171,13 +166,14 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 						}
 						]
 					};
-
-					//cambie codigo de isai, Solucion temporal
+					
 					//var response_hubspot = reque.post(reque.deals.ADD + reque.auth, opp_record);
+					//Solucion temporal
 					var response_hubspot = https.requester('asa').Post({url: reque.deals.ADD + reque.auth});				
 					
-					//console.log(response_hubspot + "  <- AQUI GIO")
-					var obj = JSON.parse(response_hubspot.body);					
+					console.log(response_hubspot.code + "  <- AQUI GIO")
+					//var obj = JSON.parse(response_hubspot.body);	
+					var obj = response_hubspot				
 
 					log.debug("deal_body", opp_record);
 					log.debug("RESP", response_hubspot);
@@ -196,14 +192,14 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 					log.debug("custentity_dmc_hubspot_id", custentity_dmc_hubspot_id);
 
-					dialog.alert({
-						title: response_hubspot.code,
-						message: errMsg
-					});
+					// dialog.alert({
+					// 	title: response_hubspot.code,
+					// 	message: errMsg
+					// });
 
 					log.debug("https response_hubspot", response_hubspot)
 					
-					rec.setValue({ fieldId: 'custbody_dmc_hs_deal_id', value: custentity_dmc_hubspot_id });
+					rec.setValue({ fieldId: 'custbody_dmc_hs_deal_id', value: custentity_dmc_hubspot_id })
 
 					try {
 						var recordId = rec.save();
