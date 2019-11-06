@@ -15,9 +15,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 		function requester(param_hapikey) {
 			//URL HUBSPOT
-			//this.url = "https://api.hubapi.com/";
-			//URL POSTMAN
-			this.url = "https://979e5f6a-4f8f-49f6-b466-a6abe040b53e.mock.pstmn.io/api_hubspot/";
+			this.url = "https://api.hubapi.com/";			
 			this.auth = '?hapikey=' + param_hapikey;
 			this.contacts = {
 				ALL: this.url + "contacts/v1/lists/all/contacts/recent",
@@ -75,8 +73,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 		}
 
 		function afterSubmit(context) {
-			var newrec = context.newRecord;
-			var newREC = context.NWrecord;			
+			var newrec = context.newRecord;					
 			var reque = new requester(param_hapikey);
 			if (context.type == "create") {
 				if (newrec.type == "opportunity") {
@@ -170,7 +167,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					
 					//var response_hubspot = reque.post(reque.deals.ADD + reque.auth, opp_record);
 					//Solucion temporal
-					var response_hubspot = https.requester('').Post({url: reque.deals.ADD + reque.auth, data: opp_record});				
+					var response_hubspot = https.requester().Post({url: reque.deals.ADD + reque.auth, data: opp_record});				
 					rec.setValue({fieldId: "code", value: response_hubspot.code})					
 					//var obj = JSON.parse(response_hubspot.body);	
 					var obj = response_hubspot				
@@ -213,22 +210,18 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 						log.debug("Error", "Error updating record with id:");
 					}
 
-				} else if (newREC.type == "estimate" || newREC.type == "salesorder") {
-					log.debug("ESTIMATE", newrec.type);		
-					console.log(newREC.type, "TYPE")			
-					rec = record.load({
-						type: newrec.type,
-						id: newrec.id
-					});
+				} else if (newrec.type == "estimate" || newrec.type == "salesorder") {
+					log.debug("ESTIMATE", newrec.type);									
+					rec = newrec;
+					// rec = record.load({
+					// 	type: newrec.type,
+					// 	id: newrec.id
+					// });					
 
-					var dealId = rec.getValue({
-						fieldId: "custbody_dmc_hs_deal_id"
-					});
+					var dealId = rec.getValue("custbody_dmc_hs_deal_id");
 
-					//REVIEW Testing issues 
-					var objSublist = rec.getSublist({
-						sublistId: 'item'
-					});
+					//REVIEW Testing issues 					
+					var objSublist = rec.getSublistFields('item');					
 
 					var numItems = rec.getLineCount({
 						sublistId: 'item'
@@ -241,35 +234,36 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					//NOTE CREATE PRODUCTS
 					for (i = 0; i < numItems; i++) {
 						try {
-							var nameitem = rec.getSublistText({
+							//cambie text por value todo lo que esta contenido en el for							
+							var nameitem = rec.getSublistValue({
 								sublistId: 'item',
 								fieldId: 'item_display',
 								line: i
-							});
+							});							
 
-							var description = rec.getSublistText({
+							var description = rec.getSublistValue({
 								sublistId: 'item',
 								fieldId: 'description',
 								line: i
-							});
+							});							
 
-							var price = rec.getSublistText({
+							var price = rec.getSublistValue({
 								sublistId: 'item',
 								fieldId: 'rate',
 								line: i
-							});
+							});													
 
-							var quantity = rec.getSublistText({
+							var quantity = rec.getSublistValue({
 								sublistId: 'item',
 								fieldId: 'quantity',
 								line: i
-							});
+							});							
 
-							var hs_line_id = rec.getSublistText({
+							var hs_line_id = rec.getSublistValue({
 								sublistId: 'item',
 								fieldId: 'custcol_dmc_hs_line_id',
 								line: i
-							});
+							});							
 
 							log.debug("hs_line_id", hs_line_id);
 							log.debug("quantity", quantity);
@@ -277,7 +271,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 							//NOTE If there is no HS product Id, it will be created through the API
 							if (hs_line_id == "" || hs_line_id == undefined) {
 								log.debug("Create new product", hs_line_id);
-
+								
 								var product = [{
 									"name": "name",
 									"value": nameitem
@@ -294,19 +288,19 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 								log.debug("Product", product);
 
-								var response_prod = reque.Post(reque.products.ADD + reque.auth, product);
-
+								//var response_prod = reque.Post(reque.products.ADD + reque.auth, product);
+								var response_prod = https.requester().Post({url: reque.products.ADD + reque.auth, data: product});											
 								log.debug("resp product", response_prod);
 
 								log.debug("resp product body", response_prod.body);
 
-								var obj_product = JSON.parse(response_prod.body);
-
+								//var obj_product = JSON.parse(response_prod.body);
+								obj_product = response_prod;								
 								log.debug("Obj product", obj_product);
 
 								var _hs_product_id = obj_product.objectId
 								var _price = obj_product.properties.price.value
-								var _name = obj_product.properties.name.value
+								var _name = obj_product.properties.name.value																
 
 								log.debug("Object id _hs_product_id", _hs_product_id);
 								//FIXME set hs_product_id value in custitem_dmc_hs_product_id field
@@ -328,10 +322,11 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 									"name": "name",
 									"value": _name
 								}
-								];
+								];								
 
-								var response_line_item = reque.Post(reque.items.ADD + reque.auth, line_item);
-
+								//var response_line_item = reque.Post(reque.items.ADD + reque.auth, line_item);
+								var response_line_item = https.requester().Post({url: reque.items.ADD + reque.auth, data: line_item});											
+								console.log(response_line_item.code)
 								log.debug("line item", line_item);
 
 								log.debug("response line item", response_line_item.body);
