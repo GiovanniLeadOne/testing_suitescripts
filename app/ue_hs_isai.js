@@ -325,30 +325,31 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 								];								
 
 								//var response_line_item = reque.Post(reque.items.ADD + reque.auth, line_item);
-								var response_line_item = https.requester().Post({url: reque.items.ADD + reque.auth, data: line_item});											
-								console.log(response_line_item.code)
+								var response_line_item = https.requester().Post({url: reque.items.ADD + reque.auth, data: line_item});																			
 								log.debug("line item", line_item);
 
 								log.debug("response line item", response_line_item.body);
 
-								var obj_line_item = JSON.parse(response_line_item.body);
+								//var obj_line_item = JSON.parse(response_line_item.body);
+
+								obj_line_item = response_line_item;
 
 								log.debug("obj line item", obj_line_item);
 
-								hs_line_id = obj_line_item.objectId;
+								hs_line_id = obj_line_item.objectId;								
 
-								rec.setSublistText({
+								rec.setSublistValue({
 									sublistId: 'item',
 									fieldId: 'custcol_dmc_hs_line_id',
 									line: i,
 									text: hs_line_id
 								});
 
-								var hs_line_id = rec.getSublistText({
+								var hs_line_id = rec.getSublistValue({
 									sublistId: 'item',
 									fieldId: 'custcol_dmc_hs_line_id',
 									line: i
-								});
+								});								
 
 								rec.save();
 
@@ -356,15 +357,20 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 							} else {
 								log.debug("Update product", hs_line_id);
+								
 								//NOTE Updating item quantity, price and name.
 								var line_item = [
 									{
 										"name": "quantity",
 										"value": quantity
 									}
-								]
+								]																
 								//NOTE PUT /crm-objects/v1/objects/products/:id similar to items.ADD
-								var response_line_item = reque.Put(reque.items.ADD + "/" + hs_line_id + reque.auth, line_item);
+								//var response_line_item = reque.Put(reque.items.ADD + "/" + hs_line_id + reque.auth, line_item);
+								
+								var response_line_item = https.requester().Put({url: reque.items.ADD + "/", id: hs_line_id + reque.auth, data: line_item});
+
+								console.log(response_line_item, "Entra")
 
 								log.debug("line item", line_item);
 

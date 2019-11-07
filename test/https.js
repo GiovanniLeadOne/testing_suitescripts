@@ -399,6 +399,23 @@ module.exports = {
             }
         };
 
+        this.Put = (options) => {
+            if (options.data) {
+                switch (options.url) {
+                    case 'https://api.hubapi.com/crm-objects/v1/objects/line_items/'+options.id+'?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
+                    return{
+                        "code": 200
+                    };
+
+                    default:
+                        return{code: 404};
+                };
+            }
+            else{
+                return { code: 400}
+            };
+        };
+
         return this;
     }
 }

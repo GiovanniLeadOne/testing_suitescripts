@@ -66,7 +66,7 @@ describe("Test Records Isai NetSuite & HubSpot", () => {
                     description: "#4 (1/2) Grade 4 Re-Bar 12",
                     rate: "1.39",
                     quantity: 1,
-                    //custcol_dmc_hs_line_id: '151088',                    
+                    custcol_dmc_hs_line_id: '15100134',                    
                     line: 1
                 }]
             }
