@@ -192,7 +192,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					}
 
 					log.debug("custentity_dmc_hubspot_id", custentity_dmc_hubspot_id);
-
+					console.log(custentity_dmc_hubspot_id)
 					// dialog.alert({
 					// 	title: response_hubspot.code,
 					// 	message: errMsg
@@ -212,7 +212,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 				} else if (newrec.type == "estimate" || newrec.type == "salesorder") {
 					log.debug("ESTIMATE", newrec.type);									
-					rec = newrec;
+					rec = newrec;					
 					// rec = record.load({
 					// 	type: newrec.type,
 					// 	id: newrec.id
@@ -289,7 +289,8 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 								log.debug("Product", product);
 
 								//var response_prod = reque.Post(reque.products.ADD + reque.auth, product);
-								var response_prod = https.requester().Post({url: reque.products.ADD + reque.auth, data: product});											
+								var response_prod = https.requester().Post({url: reque.products.ADD + reque.auth, data: product});
+								rec.setValue({fieldId: "code", value: response_prod.code})																
 								log.debug("resp product", response_prod);
 
 								log.debug("resp product body", response_prod.body);
@@ -299,6 +300,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 								log.debug("Obj product", obj_product);
 
 								var _hs_product_id = obj_product.objectId
+								rec.setValue({fieldId: "hs_id", value: _hs_product_id})
 								var _price = obj_product.properties.price.value
 								var _name = obj_product.properties.name.value																
 
@@ -366,17 +368,17 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 									}
 								]																
 								//NOTE PUT /crm-objects/v1/objects/products/:id similar to items.ADD
-								//var response_line_item = reque.Put(reque.items.ADD + "/" + hs_line_id + reque.auth, line_item);
-								
-								var response_line_item = https.requester().Put({url: reque.items.ADD + "/", id: hs_line_id + reque.auth, data: line_item});
+								//var response_line_item = reque.Put(reque.items.ADD + "/" + hs_line_id + reque.auth, line_item);															
 
-								console.log(response_line_item, "Entra")
+								var response_line_item = https.requester().Put({url: reque.items.ADD + "/"+ hs_line_id + reque.auth, id: hs_line_id, data: line_item});								
 
 								log.debug("line item", line_item);
 
 								log.debug("response line item", response_line_item.body);
 
-								var obj_line_item = JSON.parse(response_line_item.body);
+								//var obj_line_item = JSON.parse(response_line_item.body);
+
+								var obj_line_item = response_line_item								
 
 								log.debug("obj line item", obj_line_item);
 
@@ -388,10 +390,10 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 								"toObjectId": hs_line_id,
 								"category": "HUBSPOT_DEFINED",
 								"definitionId": 19
-							}
+							}							
 
-							var response_associate_crm = reque.Put(reque.associations.CREATE + reque.auth, associate_object);
-
+							//var response_associate_crm = reque.Put(reque.associations.CREATE + reque.auth, associate_object);
+							var response_associate_crm = https.requester().Put({url: reque.associations.CREATE + reque.auth, id: '{id: 120}', data: associate_object});
 							log.debug("response_associate_crm", response_associate_crm);
 
 							//REVIEW updateDealstage();
