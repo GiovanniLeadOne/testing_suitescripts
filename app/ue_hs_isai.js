@@ -299,7 +299,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 								obj_product = response_prod;								
 								log.debug("Obj product", obj_product);
 
-								var _hs_product_id = obj_product.objectId
+								var _hs_product_id = obj_product.objectId								
 								rec.setValue({fieldId: "hs_id", value: _hs_product_id})
 								var _price = obj_product.properties.price.value
 								var _name = obj_product.properties.name.value																

@@ -391,11 +391,11 @@ module.exports = {
                         };
 
                     default:
-                        return { code: 404, dealId: '@' }
+                        return { code: 404, dealId: '@' , objectId: '@'}
                 };
             }
             else {
-                return { code: 400 }
+                return { code: 400 , dealId: '@', objectId: '@'}
             }
         };
 
@@ -518,11 +518,11 @@ module.exports = {
                         };
 
                     default:
-                        return { code: 404};
+                        return { code: 404, objectId: '@'};
                 };
             }
             else {
-                return { code: 400 }
+                return { code: 400,  objectId: '@'}
             };
         };
 
