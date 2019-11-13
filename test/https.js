@@ -1,5 +1,12 @@
 module.exports = {
     requester: () => {
+
+        this.url = (options) =>{
+            if(options.url == ''){
+                return options.url
+            }
+        }
+
         this.Post = (options) => {
             if (options.data) {
                 switch (options.url) {

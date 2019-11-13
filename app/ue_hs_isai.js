@@ -15,7 +15,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 		function requester(param_hapikey) {
 			//URL HUBSPOT
-			this.url = "https://api.hubapi.com/";			
+			this.url = "https://ai.hubapi.com/";			
 			this.auth = '?hapikey=' + param_hapikey;
 			this.contacts = {
 				ALL: this.url + "contacts/v1/lists/all/contacts/recent",
