@@ -5,6 +5,9 @@ module.exports = {
             if(options.url == ''){
                 return options.url
             }
+            else{
+                return'incorrect'
+            }
         }
 
         this.Post = (options) => {

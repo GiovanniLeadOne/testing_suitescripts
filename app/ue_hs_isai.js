@@ -15,7 +15,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 		function requester(param_hapikey) {
 			//URL HUBSPOT
-			this.url = "https://ai.hubapi.com/";			
+			this.url = "https://api.hubapi.com/";			
 			this.auth = '?hapikey=' + param_hapikey;
 			this.contacts = {
 				ALL: this.url + "contacts/v1/lists/all/contacts/recent",
@@ -72,9 +72,11 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 			// };
 		}
 
-		function afterSubmit(context) {
+		function afterSubmit(context) {			
 			var newrec = context.newRecord;					
 			var reque = new requester(param_hapikey);
+			//mock https save url of the function requester 
+			https.url = reque.url
 			if (context.type == "create") {
 				if (newrec.type == "opportunity") {
 					log.debug("OPP", newrec.type);
