@@ -96,7 +96,8 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 					var company_id = rec.getValue('companyid');
 
-					var id = rec.getValue('id');
+					var id = rec.id;
+					//var id = rec.getValue('id');
 
 					var dealstage = rec.getText('entitystatus');
 
@@ -194,7 +195,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 					}
 
 					log.debug("custentity_dmc_hubspot_id", custentity_dmc_hubspot_id);
-					console.log(custentity_dmc_hubspot_id)
+					
 					// dialog.alert({
 					// 	title: response_hubspot.code,
 					// 	message: errMsg
@@ -286,10 +287,9 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 									"name": "price",
 									"value": price
 								}
-								]
+								];
 
 								log.debug("Product", product);
-
 								//var response_prod = reque.Post(reque.products.ADD + reque.auth, product);
 								var response_prod = https.requester().Post({url: reque.products.ADD + reque.auth, data: product});
 								rec.setValue({fieldId: "code", value: response_prod.code})																
