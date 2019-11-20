@@ -1,3 +1,4 @@
+
 /**
  * dmc_alk_hubspot_ue.js
  * Trimble Maps
@@ -288,24 +289,30 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 									"value": price
 								}
 								];
-
-								log.debug("Product", product);
+								
+								log.debug("Product", product);								
 								//var response_prod = reque.Post(reque.products.ADD + reque.auth, product);
 								var response_prod = https.requester().Post({url: reque.products.ADD + reque.auth, data: product});
 								rec.setValue({fieldId: "code", value: response_prod.code})																
 								log.debug("resp product", response_prod);
-
 								log.debug("resp product body", response_prod.body);
 
 								//var obj_product = JSON.parse(response_prod.body);
 								obj_product = response_prod;								
 								log.debug("Obj product", obj_product);
-
 								var _hs_product_id = obj_product.objectId								
 								rec.setValue({fieldId: "hs_id", value: _hs_product_id})
-								var _price = obj_product.properties.price.value
-								var _name = obj_product.properties.name.value																
-
+								
+								//codigo agregado por giovanni.
+								if(_hs_product_id == "@"){
+									_hs_product_id = '';
+									var _price = 0;
+									var _name = '';
+								}else{
+									var _price = obj_product.properties.price.value
+									var _name = obj_product.properties.name.value	
+								}
+																							
 								log.debug("Object id _hs_product_id", _hs_product_id);
 								//FIXME set hs_product_id value in custitem_dmc_hs_product_id field
 
@@ -326,8 +333,8 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 									"name": "name",
 									"value": _name
 								}
-								];								
-
+								];			
+								
 								//var response_line_item = reque.Post(reque.items.ADD + reque.auth, line_item);
 								var response_line_item = https.requester().Post({url: reque.items.ADD + reque.auth, data: line_item});																			
 								log.debug("line item", line_item);
@@ -340,8 +347,8 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 
 								log.debug("obj line item", obj_line_item);
 
-								hs_line_id = obj_line_item.objectId;								
-
+								hs_line_id = obj_line_item.objectId;														
+								rec.setValue({fieldId: "hs_line_id", value: hs_line_id});
 								rec.setSublistValue({
 									sublistId: 'item',
 									fieldId: 'custcol_dmc_hs_line_id',
@@ -371,7 +378,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 								]																
 								//NOTE PUT /crm-objects/v1/objects/products/:id similar to items.ADD
 								//var response_line_item = reque.Put(reque.items.ADD + "/" + hs_line_id + reque.auth, line_item);															
-
+								console.log("hs_line_id", hs_line_id)
 								var response_line_item = https.requester().Put({url: reque.items.ADD + "/"+ hs_line_id + reque.auth, id: hs_line_id, data: line_item});								
 
 								log.debug("line item", line_item);
