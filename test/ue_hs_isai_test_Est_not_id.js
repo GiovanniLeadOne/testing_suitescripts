@@ -51,7 +51,7 @@ describe("Test Records Isai NetSuite & HubSpot", () => {
             newRecord: RecordEst
         });
 
-        describe("RECORD TYPE ESTIMATE", () => {
+        describe("RECORD TYPE ESTIMATE WITHOUT ID", () => {
             it("response code 200 OK Create Estimate in Hubspot (record type Estimate)", () => {                
                 expect(RecordEst.getValue('code')).equal(200)
             });

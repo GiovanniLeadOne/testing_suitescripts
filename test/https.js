@@ -431,129 +431,129 @@ module.exports = {
         };
 
         this.Put = (options) => {
-            if (options.data) {
-                switch (options.url) {
-                    case 'https://api.hubapi.com/crm-objects/v1/objects/line_items/' + options.id + '?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
-                        return {
-                            "code": 200,
-                            "objectType": "LINE_ITEM",
-                            "portalId": 62515,
-                            "objectId": options.id,
-                            "properties": {
-                                "amount": {
-                                    "versions": [
-                                        {
-                                            "name": "amount",
-                                            "value": "137.50",
-                                            "timestamp": 0,
-                                            "sourceId": "LineItemAmountCalculator",
-                                            "source": "CALCULATED",
-                                            "sourceVid": []
-                                        }
-                                    ],
-                                    "value": "137.50",
-                                    "timestamp": 0,
-                                    "source": "CALCULATED",
-                                    "sourceId": "LineItemAmountCalculator"
-                                },
-                                "quantity": {
-                                    "versions": [
-                                        {
-                                            "name": "quantity",
-                                            "value": "5",
-                                            "timestamp": 1525371765869,
-                                            "source": "API",
-                                            "sourceVid": []
-                                        }
-                                    ],
-                                    "value": "5",
-                                    "timestamp": 1525371765869,
-                                    "source": "API",
-                                    "sourceId": null
-                                },
-                                "hs_lastmodifieddate": {
-                                    "versions": [
-                                        {
-                                            "name": "hs_lastmodifieddate",
-                                            "value": "0",
-                                            "timestamp": 0,
-                                            "source": "CALCULATED",
-                                            "sourceVid": []
-                                        }
-                                    ],
-                                    "value": "0",
-                                    "timestamp": 0,
-                                    "source": "CALCULATED",
-                                    "sourceId": null
-                                },
-                                "price": {
-                                    "versions": [
-                                        {
-                                            "name": "price",
-                                            "value": "27.50",
-                                            "timestamp": 1525359863627,
-                                            "source": "API",
-                                            "sourceVid": []
-                                        }
-                                    ],
-                                    "value": "27.50",
-                                    "timestamp": 1525359863627,
-                                    "source": "API",
-                                    "sourceId": null
-                                },
-                                "description": {
-                                    "versions": [
-                                        {
-                                            "name": "description",
-                                            "value": "An updated description for this line item. Updating the quantity.",
-                                            "timestamp": 1525371765869,
-                                            "source": "API",
-                                            "sourceVid": []
-                                        },
-                                        {
-                                            "name": "description",
-                                            "value": "A description of this product.",
-                                            "timestamp": 1525359863627,
-                                            "source": "API",
-                                            "sourceVid": []
-                                        }
-                                    ],
-                                    "value": "An updated description for this line item. Updating the quantity.",
-                                    "timestamp": 1525371765869,
-                                    "source": "API",
-                                    "sourceId": null
-                                },
-                                "hs_product_id": {
-                                    "versions": [
-                                        {
-                                            "name": "hs_product_id",
-                                            "value": "1688960",
-                                            "timestamp": 1525371444427,
-                                            "source": "API",
-                                            "sourceVid": []
-                                        }
-                                    ],
-                                    "value": "1688960",
-                                    "timestamp": 1525371444427,
-                                    "source": "API",
-                                    "sourceId": null
-                                }
+            switch (options.url) {
+                case 'https://api.hubapi.com/crm-objects/v1/objects/line_items/' + options.id + '?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
+                if(options.data[0].value){
+                    var json = {
+                        "code": 200,
+                        "objectType": "LINE_ITEM",
+                        "portalId": 62515,
+                        "objectId": options.id,
+                        "properties": {
+                            "amount": {
+                                "versions": [
+                                    {
+                                        "name": "amount",
+                                        "value": "137.50",
+                                        "timestamp": 0,
+                                        "sourceId": "LineItemAmountCalculator",
+                                        "source": "CALCULATED",
+                                        "sourceVid": []
+                                    }
+                                ],
+                                "value": "137.50",
+                                "timestamp": 0,
+                                "source": "CALCULATED",
+                                "sourceId": "LineItemAmountCalculator"
                             },
-                            "version": 0,
-                            "isDeleted": false
-                        };
+                            "quantity": {
+                                "versions": [
+                                    {
+                                        "name": "quantity",
+                                        "value": "5",
+                                        "timestamp": 1525371765869,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ],
+                                "value": "5",
+                                "timestamp": 1525371765869,
+                                "source": "API",
+                                "sourceId": null
+                            },
+                            "hs_lastmodifieddate": {
+                                "versions": [
+                                    {
+                                        "name": "hs_lastmodifieddate",
+                                        "value": "0",
+                                        "timestamp": 0,
+                                        "source": "CALCULATED",
+                                        "sourceVid": []
+                                    }
+                                ],
+                                "value": "0",
+                                "timestamp": 0,
+                                "source": "CALCULATED",
+                                "sourceId": null
+                            },
+                            "price": {
+                                "versions": [
+                                    {
+                                        "name": "price",
+                                        "value": "27.50",
+                                        "timestamp": 1525359863627,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ],
+                                "value": "27.50",
+                                "timestamp": 1525359863627,
+                                "source": "API",
+                                "sourceId": null
+                            },
+                            "description": {
+                                "versions": [
+                                    {
+                                        "name": "description",
+                                        "value": "An updated description for this line item. Updating the quantity.",
+                                        "timestamp": 1525371765869,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    },
+                                    {
+                                        "name": "description",
+                                        "value": "A description of this product.",
+                                        "timestamp": 1525359863627,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ],
+                                "value": "An updated description for this line item. Updating the quantity.",
+                                "timestamp": 1525371765869,
+                                "source": "API",
+                                "sourceId": null
+                            },
+                            "hs_product_id": {
+                                "versions": [
+                                    {
+                                        "name": "hs_product_id",
+                                        "value": "1688960",
+                                        "timestamp": 1525371444427,
+                                        "source": "API",
+                                        "sourceVid": []
+                                    }
+                                ],
+                                "value": "1688960",
+                                "timestamp": 1525371444427,
+                                "source": "API",
+                                "sourceId": null
+                            }
+                        },
+                        "version": 0,
+                        "isDeleted": false
+                    };
+                }else{
+                    return { code: 204, objectId: '@' };
+                } 
+                return json;
 
-                    case 'https://api.hubapi.com/crm-associations/v1/associations?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
-                        return {
-                            "code": 204
-                        };
+                case 'https://api.hubapi.com/crm-associations/v1/associations?hapikey=3168fe8e-1f2e-4248-ad13-51328c987044':
+                    return {
+                        "code": 204
+                    };
 
-                    default:
-                        return { code: 404, objectId: '@' };
-                };
-            }
-            else {
-                return { code: 400, objectId: '@' }
+                default:
+                    return { code: 404, objectId: '@' };
             };
         };
 

@@ -380,7 +380,7 @@ define(['N/ui/serverWidget', 'N/https', 'N/record', 'N/search', 'N/ui/dialog', '
 								//var response_line_item = reque.Put(reque.items.ADD + "/" + hs_line_id + reque.auth, line_item);															
 								console.log("hs_line_id", hs_line_id)
 								var response_line_item = https.requester().Put({url: reque.items.ADD + "/"+ hs_line_id + reque.auth, id: hs_line_id, data: line_item});								
-
+								rec.setValue({fieldId: 'code', value:response_line_item.code})
 								log.debug("line item", line_item);
 
 								log.debug("response line item", response_line_item.body);
