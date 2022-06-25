@@ -14,7 +14,7 @@
     "mocha": "^6.2.2",
     "mocha.parallel": "^0.15.6",
     "netsumo": "^3.6.7",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "should": "^13.2.3"
